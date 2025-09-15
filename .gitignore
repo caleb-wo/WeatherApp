@@ -1,0 +1,5 @@
+# Personal CLI tester module for easy runnable tests
+ApiTester/
+
+# Environment variables
+WeatherApp/Secrets.plist
