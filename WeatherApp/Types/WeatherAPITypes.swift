@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Type for the initial JSON data. It sits at the top of the heiarchy.
+/// Type for the initial JSON data. It sits at the top of the hierarchy.
 /// As we decend the JSON object, minimal decodable-structs are defined
 /// in order to get the forecast day data.
 struct WeatherResponse: Decodable{
@@ -78,7 +78,7 @@ struct Astro: Decodable{
     
     let moonPhase: String
     
-    private enum CodindKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case sunrise
         case sunset
         case moonrise
