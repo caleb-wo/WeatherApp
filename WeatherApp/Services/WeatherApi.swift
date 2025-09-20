@@ -13,21 +13,27 @@ import Foundation
 public struct WeatherApiService {
     
     // Safely collect api key from property list.
-    private let apiKey :String? = {
-        guard let path = Bundle.main.path(forResource: "Secrets",
-                                          ofType: "plist"),
-              let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject] else {
+    private let apiKey: String? = {
+        guard let path = Bundle.main.url(forResource: "Secrets",
+                                        withExtension: "plist"),
+              let data = try? Data(contentsOf: path) else {
+            print("Error: Could not find Secrets.plist or read data.")
             return nil
         }
-        guard let apiKey = dict["WeatherApiKey"] as? String else {
+
+        do {
+            let decoder = PropertyListDecoder()
+            let secrets = try decoder.decode(Secrets.self, from: data)
+            return secrets.WeatherApiKey
+        } catch {
+            print("Error decoding plist: \(error)")
             return nil
         }
-        
-        return apiKey
     }()
     
     let baseUrl = URL(string: "https://api.weatherapi.com/v1/")
-    
+    let decoder = JSONDecoder()
+
     private func get7DayForecastRequest(for zipcode: String) throws -> URLRequest {
         var components = URLComponents(url: baseUrl!, resolvingAgainstBaseURL: false)
         components?.queryItems = [
@@ -57,29 +63,33 @@ public struct WeatherApiService {
         return data
     }
     
-    private func convertJSONToDict(using data: Data) throws -> [String: Any] {
+    private func parseJSON(using data: Data) throws -> [ForecastDay] {
         do {
-            let json = try JSONSerialization.jsonObject(with: data, options: [])
-            guard let dictionary = json as? [String: Any] else {
-                throw APIError.decodingError
-            }
-            return dictionary
+            let weatherResponse = try decoder.decode(WeatherResponse.self, from: data)
+            let forecast = weatherResponse.forecast.forecastDays
+            
+            print("Successfully decoded \(forecast.count) days of forecasts.")
+            return forecast
         } catch {
             throw APIError.decodingError
         }
     }
     
-    func getForecastDictionary(from zipcode: String) async throws -> [String: Any] {
+    func get7DayForecast(for zipcode: String) async throws -> [ForecastDay] {
         do {
             let request = try get7DayForecastRequest(for: zipcode)
             let jsonData = try await get7DayForecastJSON(with: request)
-            let forecastDictionary = try convertJSONToDict(using: jsonData)
-            return forecastDictionary
+            let forecastArray = try parseJSON(using: jsonData)
+            return forecastArray
         } catch {
             throw error
         }
     }
     
+}
+
+struct Secrets: Decodable {
+    let WeatherApiKey: String
 }
 
 enum APIError: Error {

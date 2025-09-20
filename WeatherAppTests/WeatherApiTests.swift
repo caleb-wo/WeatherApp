@@ -12,23 +12,13 @@ struct WeatherApiTests {
 
     @Test("Check JSON GET request")
     func get7DayForecastJSONTest() async throws {
-//        let apiService = WeatherApiService()
-//        let data :[String: Any]?
-//        let JSON :[String: Any]
-//        var testFailed = false
-//        
-//        do{
-//            data = try? await apiService.getForecastDictionary(from: "92336")
-//        }
-//        
-//        guard let JSON = data else {
-//            testFailed = true
-//            return
-//        }
-//        
-//        if !testFailed{
-//            #expect(JSON != nil)
-//        }
+        let apiService = WeatherApiService()
+        
+        let forecastArray = try await apiService.get7DayForecast(for: "92336")
+        
+        #expect(forecastArray is [ForecastDay])
+        #expect(!forecastArray.isEmpty)
+        #expect(forecastArray.count == 7)
     }
 
 }

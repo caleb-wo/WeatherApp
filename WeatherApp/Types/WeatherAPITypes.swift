@@ -45,6 +45,7 @@ struct DayInfo: Decodable {
     let condition: Condition
     
     let dailyChanceOfRain: Int // daily_chance_of_rain
+    let dailyChanceOfSnow: Int // daily_chance_of_snow
 
     private enum CodingKeys: String, CodingKey {
         case maxTempF = "maxtemp_f"
@@ -61,6 +62,7 @@ struct DayInfo: Decodable {
         case condition
         
         case dailyChanceOfRain = "daily_chance_of_rain"
+        case dailyChanceOfSnow = "daily_chance_of_snow"
     }
 }
 
