@@ -89,3 +89,135 @@ struct Astro: Decodable{
         case moonPhase = "moon_phase"
     }
 }
+
+
+extension ForecastDay {
+    static var mockForecast: [ForecastDay] {[
+        ForecastDay(
+            date: "2025-09-22",
+            day: DayInfo(
+                maxTempF: 75.2, minTempF: 50.1,
+                maxTempC: 24.0, minTempC: 10.0,
+                avgHumidity: 65,
+                maxWindMPH: 12.3, maxWindKPH: 19.8,
+                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                dailyChanceOfRain: 10, dailyChanceOfSnow: 0
+            ),
+            astro: Astro(
+                sunrise: "06:45 AM",
+                sunset: "07:15 PM",
+                moonrise: "8:00 PM",
+                moonset: "7:00 AM",
+                moonPhase: "Waxing Gibbous"
+            )
+        ),
+        ForecastDay(
+            date: "2025-09-23",
+            day: DayInfo(
+                maxTempF: 74.8, minTempF: 52.8,
+                maxTempC: 22.0, minTempC: 12.0,
+                avgHumidity: 83,
+                maxWindMPH: 12.3, maxWindKPH: 19.8,
+                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                dailyChanceOfRain: 10, dailyChanceOfSnow: 0
+            ),
+            astro: Astro(
+                sunrise: "06:45 AM",
+                sunset: "07:15 PM",
+                moonrise: "8:00 PM",
+                moonset: "7:00 AM",
+                moonPhase: "Waxing Gibbous"
+            )
+        ),
+        ForecastDay(
+            date: "2025-09-24",
+            day: DayInfo(
+                maxTempF: 74.8, minTempF: 52.8,
+                maxTempC: 22.0, minTempC: 12.0,
+                avgHumidity: 83,
+                maxWindMPH: 12.3, maxWindKPH: 19.8,
+                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                dailyChanceOfRain: 10, dailyChanceOfSnow: 0
+            ),
+            astro: Astro(
+                sunrise: "06:45 AM",
+                sunset: "07:15 PM",
+                moonrise: "8:00 PM",
+                moonset: "7:00 AM",
+                moonPhase: "Waxing Gibbous"
+            )
+        ),
+        ForecastDay(
+            date: "2025-09-25",
+            day: DayInfo(
+                maxTempF: 74.8, minTempF: 52.8,
+                maxTempC: 22.0, minTempC: 12.0,
+                avgHumidity: 83,
+                maxWindMPH: 12.3, maxWindKPH: 19.8,
+                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                dailyChanceOfRain: 10, dailyChanceOfSnow: 0
+            ),
+            astro: Astro(
+                sunrise: "06:45 AM",
+                sunset: "07:15 PM",
+                moonrise: "8:00 PM",
+                moonset: "7:00 AM",
+                moonPhase: "Waxing Gibbous"
+            )
+        ),
+        ForecastDay(
+            date: "2025-09-26",
+            day: DayInfo(
+                maxTempF: 74.8, minTempF: 52.8,
+                maxTempC: 22.0, minTempC: 12.0,
+                avgHumidity: 83,
+                maxWindMPH: 12.3, maxWindKPH: 19.8,
+                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                dailyChanceOfRain: 10, dailyChanceOfSnow: 0
+            ),
+            astro: Astro(
+                sunrise: "06:45 AM",
+                sunset: "07:15 PM",
+                moonrise: "8:00 PM",
+                moonset: "7:00 AM",
+                moonPhase: "Waxing Gibbous"
+            )
+        ),
+        ForecastDay(
+            date: "2025-09-27",
+            day: DayInfo(
+                maxTempF: 74.8, minTempF: 52.8,
+                maxTempC: 22.0, minTempC: 12.0,
+                avgHumidity: 83,
+                maxWindMPH: 12.3, maxWindKPH: 19.8,
+                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                dailyChanceOfRain: 10, dailyChanceOfSnow: 0
+            ),
+            astro: Astro(
+                sunrise: "06:45 AM",
+                sunset: "07:15 PM",
+                moonrise: "8:00 PM",
+                moonset: "7:00 AM",
+                moonPhase: "Waxing Gibbous"
+            )
+        ),
+        ForecastDay(
+            date: "2025-09-28",
+            day: DayInfo(
+                maxTempF: 74.8, minTempF: 52.8,
+                maxTempC: 22.0, minTempC: 12.0,
+                avgHumidity: 83,
+                maxWindMPH: 12.3, maxWindKPH: 19.8,
+                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                dailyChanceOfRain: 10, dailyChanceOfSnow: 0
+            ),
+            astro: Astro(
+                sunrise: "06:45 AM",
+                sunset: "07:15 PM",
+                moonrise: "8:00 PM",
+                moonset: "7:00 AM",
+                moonPhase: "Waxing Gibbous"
+            )
+        )
+    ]}
+}
