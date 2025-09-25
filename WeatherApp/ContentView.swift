@@ -10,8 +10,9 @@ import SwiftUI
 
 struct ContentView: View {
     let service = WeatherApiService()
-    @State private var weather: [ForecastDay] = []
-
+    private var weather: [ForecastDay] = []
+    private var mockWeather = ForecastDay.mockForecast
+    
     var body: some View {
         VStack {
               // Check if we have data before trying to display it
