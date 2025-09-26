@@ -22,9 +22,11 @@ struct Forecast: Decodable{
     }
 }
 
-struct ForecastDay: Decodable {
-    let date: String
+struct ForecastDay: Decodable, Identifiable {
+    var id = UUID()
     
+    let date: String
+
     let day: DayInfo
     
     let astro: Astro
