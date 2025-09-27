@@ -24,9 +24,10 @@ struct Forecast: Decodable{
 
 struct ForecastDay: Decodable, Identifiable {
     var id = UUID()
-    
     let date: String
-    
+    let day: DayInfo
+    let astro: Astro
+
     func getDateInfo() throws -> (day: String, monthAndDay: String) {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd"
@@ -47,10 +48,6 @@ struct ForecastDay: Decodable, Identifiable {
         
         return (day: dayName, monthAndDay: monthDayStr)
     }
-    
-    let day: DayInfo
-    
-    let astro: Astro
     
     /// ForecastDay errors
     enum DateParsingError: Error{

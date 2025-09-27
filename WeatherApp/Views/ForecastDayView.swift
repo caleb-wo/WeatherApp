@@ -9,10 +9,31 @@ import SwiftUI
 
 struct ForecastDayView: View {
     let forecastDay: ForecastDay
+    var dateInfoOpt: (day: String, monthAndDay: String)? {
+        try? forecastDay.getDateInfo()
+    }
     
     var body: some View {
-//        Text("Success! The data is \(getDateObj(from: forecastDay.date))")
-        
+        if let dateInfo = dateInfoOpt {
+            Spacer()
+            VStack{
+                Text("\(dateInfo.day)")
+                    .font(.largeTitle)
+                    .padding(.top, 50)
+                    .padding(.leading, 50)
+                    .padding(.trailing, 50)
+                    .foregroundStyle(.white)
+                    .bold()
+                Text("\(dateInfo.monthAndDay)")
+                    .font(.title2)
+                    .foregroundStyle(Color.white.opacity(0.7))
+            }
+            .background(Color.stdBlue,
+                        in: RoundedRectangle(cornerRadius: 10))
+            Spacer()
+        } else {
+            Text("Error getting date information. Report bug.")
+        }
     }
     
 }
