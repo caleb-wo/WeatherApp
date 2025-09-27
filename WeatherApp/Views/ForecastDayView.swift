@@ -33,7 +33,6 @@ struct ForecastDayView: View {
                     Text("\(dateInfo.monthAndDay)")
                         .font(.title2)
                         .foregroundStyle(primaryColor.opacity(0.7))
-                    
                 }
                 .background(.white,
                             in: ConcentricRectangle(corners: .concentric(minimum: 20),
