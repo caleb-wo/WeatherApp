@@ -36,7 +36,8 @@ struct ForecastDayView: View {
                     
                 }
                 .background(.white,
-                            in: RoundedRectangle(cornerRadius: 20))
+                            in: ConcentricRectangle(corners: .concentric(minimum: 20),
+                                                    isUniform: true))
                 Spacer()
                 
             } // ZStack

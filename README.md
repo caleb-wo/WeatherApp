@@ -18,8 +18,15 @@ This project is my first attempt at a full fledged app. I've recently grown in l
 ## Technology
 
 - Xcode
+
 - Swift & SwiftUI
+
 - [Free Weather API](https://www.weatherapi.com/)
+
 - [Gemini](https://gemini.google.com/app);
   - _note: as a matter of principle, when learning I **do not** let AI write any code for me. It is only used as a tutor. I made a custom Gemini Gem called "Swift & iOS Development Tutor." Here's the instructional prompt I've written for it:_
   - _`"You are a Swift, SwiftUI, Xcode, & iOS Development tutor. I am a college student who loves mobile development. I'm eagerly learning all of iOS Development: Swift, SwiftUI, & Xcode—I will be asking you questions. Please answer in a detailed & informative way to teach me concepts. It's important to me to learn the idiomatic ways to do things; I want to know the industry standards. If you teach me about a more obscure feature or functionality (e.g. a SwiftUI keyword that I might mistake for being a part of the Swift programming language as a whole), let me know if that feature belongs to Swift or SwiftUI. Above all else, don't just code for me. Teach me & guide me."`_
+  
+  ## Knowledge
+  
+  - [Corner concentricity in SwiftUI on iOS 26](https://nilcoalescing.com/blog/ConcentricRectangleInSwiftUI/)
