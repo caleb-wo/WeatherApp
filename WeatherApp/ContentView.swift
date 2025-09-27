@@ -14,19 +14,24 @@ struct ContentView: View {
     private var weather = ForecastDay.mockForecast
     
     var body: some View {
-        ScrollView(.horizontal) {
-            ForEach(weather) { forecastDay in
-                Text("Data for \(forecastDay.date)")
+        ZStack {
+            Color.stdBlue.ignoresSafeArea()
+            TabView{
+                ForEach(weather) { forecastDay in
+                    ForecastDayView(forecastDay: forecastDay)
+                }
+            }
+            .padding()
+            .tabViewStyle(.page)
+            VStack{
+                HStack{
+                    Spacer()
+                    SettingsView()
+                        .padding(.trailing)
+                }
+                Spacer()
             }
         }
-        .padding()
-//        .task {
-//            do {
-//                weather = try await service.get7DayForecast(for: "92336")
-//            } catch {
-//                print("Error fetching weather: \(error)")
-//            }
-//        }
     }
 }
 
