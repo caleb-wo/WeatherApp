@@ -26,10 +26,36 @@ struct ForecastDay: Decodable, Identifiable {
     var id = UUID()
     
     let date: String
-
+    
+    func getDateInfo() throws -> (day: String, monthAndDay: String) {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd"
+        inputFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
+        guard let dateObject = inputFormatter.date(from: date) else {
+            throw DateParsingError.couldNotParseDate("Could not parse Date object from \(date)")
+        }
+        
+        let dayGetter = DateFormatter()
+        dayGetter.dateFormat = "EEEE"
+        dayGetter.locale = Locale(identifier: "en_US")
+        let dayName = dayGetter.string(from: dateObject )
+        
+        let monthDayGetter = DateFormatter()
+        monthDayGetter.dateFormat = "M/dd"
+        let monthDayStr = monthDayGetter.string(from: dateObject )
+        
+        return (day: dayName, monthAndDay: monthDayStr)
+    }
+    
     let day: DayInfo
     
     let astro: Astro
+    
+    /// ForecastDay errors
+    enum DateParsingError: Error{
+        case couldNotParseDate(String)
+    }
 }
 
 struct DayInfo: Decodable {

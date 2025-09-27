@@ -11,17 +11,10 @@ struct ForecastDayView: View {
     let forecastDay: ForecastDay
     
     var body: some View {
-        Text("Success! The data is \(getDateObj(from: forecastDay.date))")
+//        Text("Success! The data is \(getDateObj(from: forecastDay.date))")
         
     }
     
-    func getDateObj(from dateStr: String) -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        return dateFormatter.date(from: dateStr)!
-    }
 }
 
 //ForecastDay(
