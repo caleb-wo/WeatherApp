@@ -16,12 +16,15 @@ struct ForecastDayView: View {
     var body: some View {
         if let dateInfo = dateInfoOpt {
             let primaryColor = Color.stdBlue
+            let maxTemp = forecastDay.day.maxTempF
+            let minTemp = forecastDay.day.minTempF
+
             ZStack {
                 primaryColor
                     .ignoresSafeArea(edges: .all)
                 
                 Spacer()
-                VStack{
+                VStack(spacing: 10){
                     Text("\(dateInfo.day)")
                         .font(.largeTitle)
                         .padding(.top, 50)
@@ -33,7 +36,34 @@ struct ForecastDayView: View {
                     Text("\(dateInfo.monthAndDay)")
                         .font(.title2)
                         .foregroundStyle(primaryColor.opacity(0.7))
-                }
+                    
+                    Grid{
+                        GridRow{
+                            HStack{
+                                Text("\(forecastDay.day.condition.text)")
+                                AsyncImage(url: URL(
+                                    string: forecastDay.day.condition.icon)){ phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                        case .success(let image):
+                                            image
+                                        case .failure:
+                                            EmptyView()
+                                        @unknown default:
+                                            EmptyView()
+                                        }
+                                    }
+                            }
+                        }
+                        GridRow{
+                            Text("Max Temp: \(maxTemp, specifier: "%.1f")º")
+                        }
+                        GridRow{
+                            Text("Min Temp: \(minTemp, specifier: "%.1f")º")
+                        }
+                    }
+            }
                 .background(.white,
                             in: ConcentricRectangle(corners: .concentric(minimum: 20),
                                                     isUniform: true))
