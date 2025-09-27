@@ -15,26 +15,35 @@ struct ForecastDayView: View {
     
     var body: some View {
         if let dateInfo = dateInfoOpt {
-            Spacer()
-            VStack{
-                Text("\(dateInfo.day)")
-                    .font(.largeTitle)
-                    .padding(.top, 50)
-                    .padding(.leading, 50)
-                    .padding(.trailing, 50)
-                    .foregroundStyle(.white)
-                    .bold()
-                Text("\(dateInfo.monthAndDay)")
-                    .font(.title2)
-                    .foregroundStyle(Color.white.opacity(0.7))
-            }
-            .background(Color.stdBlue,
-                        in: RoundedRectangle(cornerRadius: 10))
-            Spacer()
+            let primaryColor = Color.stdBlue
+            ZStack {
+                primaryColor
+                    .ignoresSafeArea(edges: .all)
+                
+                Spacer()
+                VStack{
+                    Text("\(dateInfo.day)")
+                        .font(.largeTitle)
+                        .padding(.top, 50)
+                        .padding(.leading, 50)
+                        .padding(.trailing, 50)
+                        .foregroundStyle(primaryColor)
+                        .bold()
+                    
+                    Text("\(dateInfo.monthAndDay)")
+                        .font(.title2)
+                        .foregroundStyle(primaryColor.opacity(0.7))
+                    
+                }
+                .background(.white,
+                            in: RoundedRectangle(cornerRadius: 20))
+                Spacer()
+                
+            } // ZStack
         } else {
             Text("Error getting date information. Report bug.")
         }
-    }
+    } // Body
     
 }
 
