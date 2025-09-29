@@ -26,11 +26,12 @@ struct SettingsView: View {
                     .glassEffect(in: .buttonBorder)
             }
         }
-        .popover(isPresented: $isPresented) {
-            SettingsMenu(isPresented: $isPresented, isFarenheit: $isFarenheit)
-                .presentationBackground(.thinMaterial)
+        .sheet(isPresented: $isPresented) {
+            SettingsMenu(isPresented: $isPresented,
+                         isFarenheit: $isFarenheit)
+                .presentationDetents([.medium, .large],
+                                     selection: .constant(.medium))
         }
-        .interactiveDismissDisabled()
     }
 }
 
