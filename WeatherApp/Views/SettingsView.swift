@@ -12,43 +12,25 @@ struct SettingsView: View {
     @State var isPresented: Bool = false
     
     var body: some View {
-        if !isPresented{
-            HStack{
-                Button(action: {
-                    withAnimation(.easeInOut(duration: 0.3)){
-                        isPresented.toggle()
-                    }
-                }) {
-                    Image(systemName: "line.horizontal.3")
-                        .font(.largeTitle)
-                        .foregroundStyle(.white)
-                        .bold()
+        HStack{
+            Button(action: {
+                withAnimation(.easeInOut(duration: 0.3)){
+                    isPresented.toggle()
                 }
+            }) {
+                Image(systemName: "line.horizontal.3")
+                    .font(.largeTitle)
+                    .foregroundStyle(.white)
+                    .bold()
+                    .padding()
+                    .glassEffect(in: .buttonBorder)
             }
-        } else {
-            VStack{
-                Button(action:{
-                    withAnimation(.easeInOut(duration: 0.3)){
-                        isPresented.toggle()
-                    }
-                }){
-                    HStack {
-                        Spacer()
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.largeTitle)
-                            .padding(15)
-                    }
-                }
-                Toggle("Farenheit", isOn: $isFarenheit)
-                    .padding([.bottom,
-                              .leading,
-                              .trailing], 15)
-            }
-            .frame(maxWidth: 180)
-            .background(.white,
-                        in: ConcentricRectangle(corners: .concentric(minimum: 20),
-                                               isUniform: true))
         }
+        .popover(isPresented: $isPresented) {
+            SettingsMenu(isPresented: $isPresented, isFarenheit: $isFarenheit)
+                .presentationBackground(.thinMaterial)
+        }
+        .interactiveDismissDisabled()
     }
 }
 
