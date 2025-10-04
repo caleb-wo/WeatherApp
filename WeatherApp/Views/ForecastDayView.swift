@@ -24,51 +24,60 @@ struct ForecastDayView: View {
                     .ignoresSafeArea(edges: .all)
                 
                 Spacer()
-                VStack(spacing: 10){
-                    Text("\(dateInfo.day)")
-                        .font(.largeTitle)
-                        .padding(.top, 50)
-                        .padding(.leading, 50)
-                        .padding(.trailing, 50)
-                        .foregroundStyle(primaryColor)
-                        .bold()
-                    
-                    Text("\(dateInfo.monthAndDay)")
-                        .font(.title2)
-                        .foregroundStyle(primaryColor.opacity(0.7))
-                    
-                    Grid{
-                        GridRow{
-                            HStack{
-                                Text("\(forecastDay.day.condition.text)")
-                                AsyncImage(url: URL(
-                                    string: forecastDay.day.condition.icon)){ phase in
-                                        switch phase {
-                                        case .empty:
-                                            ProgressView()
-                                        case .success(let image):
-                                            image
-                                        case .failure:
-                                            EmptyView()
-                                        @unknown default:
-                                            EmptyView()
-                                        }
+                VStack{
+                    VStack(spacing: 10){
+                        Text("\(dateInfo.day)")
+                            .font(.largeTitle)
+                            .padding([.top, .leading, .trailing], 50)
+                            .foregroundStyle(primaryColor)
+                            .bold()
+                        
+                        Text("\(dateInfo.monthAndDay)")
+                            .font(.title2)
+                            .foregroundStyle(primaryColor.opacity(0.7))
+                        
+                        HStack{
+                            Text("\(forecastDay.day.condition.text)")
+                                .font(.title2)
+                            AsyncImage(url: URL(
+                                string: forecastDay.day.condition.icon)){ phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                    case .success(let image):
+                                        image
+                                            .padding(0)
+                                    case .failure:
+                                        EmptyView()
+                                    @unknown default:
+                                        EmptyView()
                                     }
-                            }
+                                }
                         }
-                        GridRow{
+
+                        List{
                             Text("Max Temp: \(maxTemp, specifier: "%.1f")º")
-                        }
-                        GridRow{
                             Text("Min Temp: \(minTemp, specifier: "%.1f")º")
                         }
+                        .font(.headline)
+                        .frame(maxHeight: 175)
+                        .clipShape(ConcentricRectangle(corners: .concentric(minimum: 20), isUniform: true))
                     }
-            }
-                .background(.white,
-                            in: ConcentricRectangle(corners: .concentric(minimum: 20),
-                                                    isUniform: true))
+                    .frame(maxWidth: 300)
+                    .background(.white,
+                                in: ConcentricRectangle(corners: .concentric(minimum: 20),
+                                                        isUniform: true))
+                    Button("MORE"){
+                        
+                    }
+                    .frame(maxWidth: 275)
+                    .font(.headline)
+                    .padding(10)
+                    .glassEffect(in: RoundedRectangle(cornerRadius: 20))
+                }
                 Spacer()
                 
+
             } // ZStack
         } else {
             Text("Error getting date information. Report bug.")

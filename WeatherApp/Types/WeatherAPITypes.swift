@@ -125,7 +125,8 @@ extension ForecastDay {
                 maxTempC: 24.0, minTempC: 10.0,
                 avgHumidity: 65,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
-                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                condition: Condition(text: "Partly cloudy",
+                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -143,7 +144,8 @@ extension ForecastDay {
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
-                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                condition: Condition(text: "Partly cloudy",
+                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -161,7 +163,8 @@ extension ForecastDay {
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
-                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                condition: Condition(text: "Partly cloudy",
+                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -179,7 +182,8 @@ extension ForecastDay {
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
-                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                condition: Condition(text: "Partly cloudy",
+                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -197,7 +201,8 @@ extension ForecastDay {
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
-                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                condition: Condition(text: "Partly cloudy",
+                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -215,7 +220,8 @@ extension ForecastDay {
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
-                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                condition: Condition(text: "Partly cloudy",
+                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -233,7 +239,8 @@ extension ForecastDay {
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
-                condition: Condition(text: "Partly cloudy", icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
+                condition: Condition(text: "Partly cloudy",
+                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
