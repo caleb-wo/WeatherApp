@@ -9,13 +9,19 @@ This project is my first attempt at a full fledged app. I've recently grown in l
 ## Goals
 
 - **[COMPLETED]** Set up API service (see API info below)
-- **[COMPLETED]** Built decodable types to map API JSON data. Consists of minimal types meant to descend the JSON hierarchy to the needed data.
-- **[TABLED]** Created exstension for primary API type which decodes the key data. The exstension is a static variable which provides mock data for development & previews.
-- **[IN PROGRESS]** Main page styling
-  - Forecast Day page
-  - .popover view for settings & user preferences
 
-- **[UP NEXT]** Day weather data focus page
+- **[COMPLETED]** Built decodable types to map API JSON data. Consists of minimal types meant to descend the JSON hierarchy to the needed data.
+
+- **[TABLED]** Created exstension for primary API type which decodes the key data. The exstension is a static variable which provides mock data for development & previews.
+
+- **[COMPLETED]** Main page styling
+  
+  - [x] Forecast Day page
+
+  - [x] .sheet view for settings & user preferences
+  
+- **[IN PROGRESS]** Day weather data focus page
+
 - **[UP NEXT]** TBD. Whatever I want. I'd like to find a way to optimize or utilize SwiftData so we'll see =).
 
 ## Technology
