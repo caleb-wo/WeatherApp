@@ -18,6 +18,10 @@ class UserRecord {
     func addZipCode(_ zipcode: String, name: String){
         zipCodes.append(ZipCode(code: zipcode, name: name))
     }
+    
+    func deleteZipCode(_ index: Int){
+        zipCodes.remove(at: index)
+    }
 }
 
 @Model
