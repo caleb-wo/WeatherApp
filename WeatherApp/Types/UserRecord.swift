@@ -11,6 +11,21 @@ import SwiftData
 @Model
 class UserRecord {
     var isFarenhiet: Bool = true
+    var zipCodes: [ZipCode] = [ZipCode(code: "83440", name: "Rexburg, ID")]
     
     init(){}
+    
+    func addZipCode(_ zipcode: String, name: String){
+        zipCodes.append(ZipCode(code: zipcode, name: name))
+    }
+}
+
+@Model
+class ZipCode: Identifiable {
+    var id = UUID()
+    var zipCode: (code: String, name: String)
+    
+    init(code: String, name: String){
+        self.zipCode = (code, name)
+    }
 }
