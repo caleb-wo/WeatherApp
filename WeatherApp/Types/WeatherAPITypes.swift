@@ -25,36 +25,49 @@ struct Forecast: Decodable{
 struct ForecastDay: Decodable, Identifiable {
     var id = UUID()
     let date: String
+    let dateEpoch: TimeInterval
     let day: DayInfo
     let astro: Astro
     
     /// Added coding to omit the ID.
     private enum CodingKeys: String, CodingKey {
-         case date
-         case day
-         case astro
+        case date
+        case dateEpoch = "date_epoch"
+        case day
+        case astro
      }
-
+    
+    
     func getDateInfo() throws -> (day: String, monthAndDay: String) {
-        let inputFormatter = DateFormatter()
-        inputFormatter.dateFormat = "yyyy-MM-dd"
-        inputFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        
-        guard let dateObject = inputFormatter.date(from: date) else {
-            throw DateParsingError.couldNotParseDate("Could not parse Date object from \(date)")
-        }
-        
-        let dayGetter = DateFormatter()
-        dayGetter.dateFormat = "EEEE"
-        dayGetter.locale = Locale(identifier: "en_US")
-        let dayName = dayGetter.string(from: dateObject )
-        
-        let monthDayGetter = DateFormatter()
-        monthDayGetter.dateFormat = "M/dd"
-        let monthDayStr = monthDayGetter.string(from: dateObject )
+        let dateObject = Date(timeIntervalSince1970: dateEpoch)
+        let dayName = dateObject.formatted(.dateTime.weekday(.wide))
+        let monthDayStr = dateObject.formatted(.dateTime
+                                                .month(.defaultDigits)
+                                                .day(.twoDigits))
         
         return (day: dayName, monthAndDay: monthDayStr)
     }
+
+//    func getDateInfo() throws -> (day: String, monthAndDay: String) {
+//        let inputFormatter = DateFormatter()
+//        inputFormatter.dateFormat = "yyyy-MM-dd"
+//        inputFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+//        
+//        guard let dateObject = inputFormatter.date(from: date) else {
+//            throw DateParsingError.couldNotParseDate("Could not parse Date object from \(date)")
+//        }
+//        
+//        let dayGetter = DateFormatter()
+//        dayGetter.dateFormat = "EEEE"
+//        dayGetter.locale = Locale(identifier: "en_US")
+//        let dayName = dayGetter.string(from: dateObject )
+//        
+//        let monthDayGetter = DateFormatter()
+//        monthDayGetter.dateFormat = "M/dd"
+//        let monthDayStr = monthDayGetter.string(from: dateObject )
+//        
+//        return (day: dayName, monthAndDay: monthDayStr)
+//    }
     
     /// ForecastDay errors
     enum DateParsingError: Error{
@@ -127,13 +140,14 @@ extension ForecastDay {
     static var mockForecast: [ForecastDay] {[
         ForecastDay(
             date: "2025-09-22",
+            dateEpoch: 1759536000,
             day: DayInfo(
                 maxTempF: 75.2, minTempF: 50.1,
                 maxTempC: 24.0, minTempC: 10.0,
                 avgHumidity: 65,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
                 condition: Condition(text: "Partly cloudy",
-                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
+                                     icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -146,13 +160,14 @@ extension ForecastDay {
         ),
         ForecastDay(
             date: "2025-09-23",
+            dateEpoch: 1759536000,
             day: DayInfo(
                 maxTempF: 74.8, minTempF: 52.8,
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
                 condition: Condition(text: "Partly cloudy",
-                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
+                                     icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -165,13 +180,14 @@ extension ForecastDay {
         ),
         ForecastDay(
             date: "2025-09-24",
+            dateEpoch: 1759536000,
             day: DayInfo(
                 maxTempF: 74.8, minTempF: 52.8,
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
                 condition: Condition(text: "Partly cloudy",
-                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
+                                     icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -184,13 +200,14 @@ extension ForecastDay {
         ),
         ForecastDay(
             date: "2025-09-25",
+            dateEpoch: 1759536000,
             day: DayInfo(
                 maxTempF: 74.8, minTempF: 52.8,
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
                 condition: Condition(text: "Partly cloudy",
-                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
+                                     icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -203,13 +220,14 @@ extension ForecastDay {
         ),
         ForecastDay(
             date: "2025-09-26",
+            dateEpoch: 1759536000,
             day: DayInfo(
                 maxTempF: 74.8, minTempF: 52.8,
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
                 condition: Condition(text: "Partly cloudy",
-                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
+                                     icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -222,13 +240,14 @@ extension ForecastDay {
         ),
         ForecastDay(
             date: "2025-09-27",
+            dateEpoch: 1759536000,
             day: DayInfo(
                 maxTempF: 74.8, minTempF: 52.8,
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
                 condition: Condition(text: "Partly cloudy",
-                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
+                                     icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
@@ -241,13 +260,14 @@ extension ForecastDay {
         ),
         ForecastDay(
             date: "2025-09-28",
+            dateEpoch: 1759536000,
             day: DayInfo(
                 maxTempF: 74.8, minTempF: 52.8,
                 maxTempC: 22.0, minTempC: 12.0,
                 avgHumidity: 83,
                 maxWindMPH: 12.3, maxWindKPH: 19.8,
                 condition: Condition(text: "Partly cloudy",
-                                     icon: "https://cdn.weatherapi.com/weather/64x64/day/116.png"),
+                                     icon: "//cdn.weatherapi.com/weather/64x64/day/116.png"),
                 dailyChanceOfRain: 10, dailyChanceOfSnow: 0
             ),
             astro: Astro(
