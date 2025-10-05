@@ -39,7 +39,7 @@ public struct WeatherApiService {
         components?.queryItems = [
             URLQueryItem(name: "key", value: apiKey),
             URLQueryItem(name: "q", value: "\(zipcode)"),
-            URLQueryItem(name: "days", value: "7"),
+            URLQueryItem(name: "days", value: "3"),
             URLQueryItem(name: "aqi", value: "no"),
             URLQueryItem(name: "alerts", value: "no")
         ]
