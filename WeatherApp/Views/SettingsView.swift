@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State var isFarenheit: Bool = true
+    @State var userRecord: UserRecord
     @State var isPresented: Bool = false
     
     var body: some View {
@@ -28,7 +28,7 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $isPresented) {
             SettingsMenu(isPresented: $isPresented,
-                         isFarenheit: $isFarenheit)
+                         userRecord: userRecord)
                 .presentationDetents([.medium, .large],
                                      selection: .constant(.medium))
         }
@@ -36,5 +36,6 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView()
+    @Previewable @State var userRecord = UserRecord()
+    SettingsView(userRecord: userRecord)
 }

@@ -27,9 +27,11 @@ class UserRecord {
 @Model
 class ZipCode: Identifiable {
     var id = UUID()
-    var zipCode: (code: String, name: String)
+    var code: String
+    var name: String
     
     init(code: String, name: String){
-        self.zipCode = (code, name)
+        self.code = code
+        self.name = name
     }
 }

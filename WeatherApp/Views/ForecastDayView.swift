@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ForecastDayView: View {
     let forecastDay: ForecastDay
+    @State var userRecord: UserRecord
     let urlStub = "https:"
     var dateInfoOpt: (day: String, monthAndDay: String)? {
         try? forecastDay.getDateInfo()
@@ -17,8 +19,8 @@ struct ForecastDayView: View {
     var body: some View {
         if let dateInfo = dateInfoOpt {
             let primaryColor = Color.stdBlue
-            let maxTemp = forecastDay.day.maxTempF
-            let minTemp = forecastDay.day.minTempF
+            let maxTemp = userRecord.isFarenhiet ? forecastDay.day.maxTempF : forecastDay.day.maxTempC
+            let minTemp = userRecord.isFarenhiet ? forecastDay.day.minTempF : forecastDay.day.minTempC
 
             ZStack {
                 primaryColor
@@ -107,5 +109,6 @@ struct ForecastDayView: View {
 //)
 
 #Preview {
-    ForecastDayView(forecastDay: ForecastDay.mockForecast[0])
+    @Previewable @State var userRecord = UserRecord()
+    ForecastDayView(forecastDay: ForecastDay.mockForecast[0], userRecord: userRecord)
 }

@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 
 struct ContentView: View {
+    @Query private var userRecord: [UserRecord]
+    @Environment(\.modelContext) var context
+    
     let service = WeatherApiService()
     @State private var weather: [ForecastDay] = []
     var zipcode = "83440"
@@ -19,7 +23,8 @@ struct ContentView: View {
             Color.stdBlue.ignoresSafeArea()
             TabView{
                 ForEach(weather) { forecastDay in
-                    ForecastDayView(forecastDay: forecastDay)
+                    ForecastDayView(forecastDay: forecastDay,
+                                    userRecord: userRecord[0])
                 }
             }
             .padding()
@@ -27,13 +32,14 @@ struct ContentView: View {
             VStack{
                 HStack{
                     Spacer()
-                    SettingsView()
+                    SettingsView(userRecord: userRecord[0])
                         .padding(.trailing)
                 }
                 Spacer()
             }
         }
         .task{
+            context.insert(UserRecord())
             do{
                 let fetchedData = try await service.get7DayForecast(for: zipcode)
                 
@@ -47,4 +53,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .modelContainer(for: UserRecord.self, inMemory: true)
 }

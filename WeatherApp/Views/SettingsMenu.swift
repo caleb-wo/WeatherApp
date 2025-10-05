@@ -9,9 +9,9 @@ import SwiftUI
 
 struct SettingsMenu: View {
     @Binding var isPresented: Bool
-    @Binding var isFarenheit: Bool
     @Environment(\.dismiss) var dismiss
     @State private var showPopover: Bool = false
+    @State var userRecord: UserRecord
     
     var body: some View {
         VStack{
@@ -29,7 +29,7 @@ struct SettingsMenu: View {
                 }
             }
             VStack{
-                Toggle("Farenheit", isOn: $isFarenheit)
+                Toggle("Farenheit", isOn: $userRecord.isFarenhiet)
                     .font(.title2.bold())
                     .foregroundStyle(.white)
                     .padding(15)
@@ -47,7 +47,7 @@ struct SettingsMenu: View {
                             .foregroundStyle(.white)
                             .font(.title2.bold())
                     }
-                    .popover(isPresented: $showPopover, attachmentAnchor: .point(.top)){
+                    .popover(isPresented: $showPopover, attachmentAnchor: .point(.trailing)){
                         TextField("Enter Zip Code", text: .constant(""))
                             .textFieldStyle(.roundedBorder)
                             .padding(20)
@@ -66,5 +66,6 @@ struct SettingsMenu: View {
 #Preview {
     @Previewable @State var isPresented: Bool = true
     @Previewable @State var isFarenheit: Bool = true
-    SettingsMenu(isPresented: $isPresented, isFarenheit: $isFarenheit)
+    @Previewable @State var userRecord = UserRecord()
+    SettingsMenu(isPresented: $isPresented, userRecord: userRecord)
 }
