@@ -10,8 +10,10 @@ import SwiftData
 
 
 struct ContentView: View {
-    @Query private var userRecord: [UserRecord]
+    @Query private var userRecordData: [UserRecord]
     @Environment(\.modelContext) var context
+    @State private var userRecord: UserRecord? = nil
+    
     
     let service = WeatherApiService()
     @State private var weather: [ForecastDay] = []
@@ -24,7 +26,7 @@ struct ContentView: View {
             TabView{
                 ForEach(weather) { forecastDay in
                     ForecastDayView(forecastDay: forecastDay,
-                                    userRecord: userRecord[0])
+                                    userRecord: userRecord!)
                 }
             }
             .padding()
@@ -32,14 +34,21 @@ struct ContentView: View {
             VStack{
                 HStack{
                     Spacer()
-                    SettingsView(userRecord: userRecord[0])
+                    SettingsView(userRecord: userRecord!)
                         .padding(.trailing)
                 }
                 Spacer()
             }
         }
         .task{
-            context.insert(UserRecord())
+            if userRecordData.isEmpty{
+                userRecord = UserRecord()
+                
+                context.insert(userRecord!)
+                try? context.save()
+            } else {
+                userRecord = userRecordData.first!
+            }
             do{
                 let fetchedData = try await service.get7DayForecast(for: zipcode)
                 
