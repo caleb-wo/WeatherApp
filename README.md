@@ -30,7 +30,7 @@ This project is my first attempt at a full fledged app. I've recently grown in l
 
 - Swift & SwiftUI
 
-- [Free Weather API](https://www.weatherapi.com/)
+- [Free Weather API](https://www.weatherapi.com/) (API free tier allows me only 3 forecast days)
 
 ## Knowledge
 
