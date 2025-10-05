@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ForecastDayView: View {
     let forecastDay: ForecastDay
+    let urlStub = "https:"
     var dateInfoOpt: (day: String, monthAndDay: String)? {
         try? forecastDay.getDateInfo()
     }
@@ -40,7 +41,7 @@ struct ForecastDayView: View {
                             Text("\(forecastDay.day.condition.text)")
                                 .font(.title2)
                             AsyncImage(url: URL(
-                                string: forecastDay.day.condition.icon)){ phase in
+                                string: urlStub + forecastDay.day.condition.icon)){ phase in
                                     switch phase {
                                     case .empty:
                                         ProgressView()

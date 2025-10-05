@@ -27,6 +27,13 @@ struct ForecastDay: Decodable, Identifiable {
     let date: String
     let day: DayInfo
     let astro: Astro
+    
+    /// Added coding to omit the ID.
+    private enum CodingKeys: String, CodingKey {
+         case date
+         case day
+         case astro
+     }
 
     func getDateInfo() throws -> (day: String, monthAndDay: String) {
         let inputFormatter = DateFormatter()

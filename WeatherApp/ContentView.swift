@@ -10,8 +10,9 @@ import SwiftUI
 
 struct ContentView: View {
     let service = WeatherApiService()
-//    private var weather: [ForecastDay] = []
-    private var weather = ForecastDay.mockForecast
+    @State private var weather: [ForecastDay] = []
+    var zipcode = "83440"
+//    private var weather = ForecastDay.mockForecast
     
     var body: some View {
         ZStack {
@@ -30,6 +31,15 @@ struct ContentView: View {
                         .padding(.trailing)
                 }
                 Spacer()
+            }
+        }
+        .task{
+            do{
+                let fetchedData = try await service.get7DayForecast(for: zipcode)
+                
+                weather = fetchedData
+            } catch {
+                print("Error fetching weather data for \(zipcode): \(error)")
             }
         }
     }

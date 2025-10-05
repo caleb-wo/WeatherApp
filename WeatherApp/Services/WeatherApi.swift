@@ -31,7 +31,7 @@ public struct WeatherApiService {
         }
     }()
     
-    let baseUrl = URL(string: "https://api.weatherapi.com/v1/")
+    let baseUrl = URL(string: "https://api.weatherapi.com")
     let decoder = JSONDecoder()
 
     private func get7DayForecastRequest(for zipcode: String) throws -> URLRequest {
@@ -39,9 +39,12 @@ public struct WeatherApiService {
         components?.queryItems = [
             URLQueryItem(name: "key", value: apiKey),
             URLQueryItem(name: "q", value: "\(zipcode)"),
-            URLQueryItem(name: "days", value: "7")
+            URLQueryItem(name: "days", value: "7"),
+            URLQueryItem(name: "aqi", value: "no"),
+            URLQueryItem(name: "alerts", value: "no")
         ]
         
+        components?.path = "/v1/forecast.json"
         guard let url = components?.url else {
             throw APIError.invalidURL
         }
