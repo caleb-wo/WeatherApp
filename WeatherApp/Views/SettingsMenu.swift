@@ -30,6 +30,7 @@ struct SettingsMenu: View {
                     Image(systemName: "xmark.circle.fill")
                         .font(.largeTitle)
                         .padding(15)
+                        .foregroundStyle(.white)
                 }
             }
             VStack{

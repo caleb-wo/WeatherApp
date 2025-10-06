@@ -32,6 +32,7 @@ struct SettingsView: View {
                          userRecord: userRecord)
                 .presentationDetents([.medium, .large],
                                      selection: .constant(.large))
+                .background(.gray)
         }
     }
 }
