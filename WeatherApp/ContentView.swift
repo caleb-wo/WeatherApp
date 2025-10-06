@@ -16,7 +16,6 @@ struct ContentView: View {
     
     let service = WeatherApiService()
     @State private var weather: [ForecastDay] = []
-    var zipcode = "83440"
 //    private var weather = ForecastDay.mockForecast
     
     var body: some View {
@@ -49,13 +48,32 @@ struct ContentView: View {
                 try? context.save()
             }
             
+        }
+        .task(id: userRecordData.first?.selectedZipCodeIdx){
             do{
-                let fetchedData = try await service.get7DayForecast(for: zipcode)
+                let fetchedData: [ForecastDay]
+                let code: String
                 
+                guard let userRecord = userRecordData.first else {
+                    print("Error: Could not retrieve UserRecord for initial fetch.")
+                    return
+                }
+                
+                if userRecord.zipCodes.indices.contains(
+                    userRecord.selectedZipCodeIdx
+                ) {
+                    code = userRecord.zipCodes[userRecord.selectedZipCodeIdx].code
+                } else {
+                    code = "83440"
+                }
+                
+                fetchedData = try await service.get7DayForecast(for: code)
+
                 weather = fetchedData
             } catch {
-                print("Error fetching weather data for \(zipcode): \(error)")
+                print("Error fetching weather data: \(error)")
             }
+
         }
     }
 }

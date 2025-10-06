@@ -64,7 +64,6 @@ struct SettingsMenu: View {
                 
                 Text("Your Zipcodes")
                     .padding(.top, 50)
-                    .padding(.bottom, -30)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundStyle(.white)
@@ -74,37 +73,43 @@ struct SettingsMenu: View {
                            selection: $userRecord.selectedZipCodeIdx) {
                         ForEach(userRecord.zipCodes.indices, id: \.self) { idx in
                             let zipCode = userRecord.zipCodes[idx]
-                            Text("\(zipCode.name): \(zipCode.code)").tag(idx)
+                            
+                            if zipCode == userRecord.zipCodes[userRecord.selectedZipCodeIdx] {
+                                Text("⭐️ \(zipCode.name): \(zipCode.code)").tag(idx)
+                            } else {
+                                Text("\(zipCode.name): \(zipCode.code)").tag(idx)
+                            }
                         }
                     }
                            .pickerStyle(.menu)
+                    
+                    List{
+                        ForEach(userRecord.zipCodes, id: \.id){ zipcode in
+                            Text("\(zipcode.name): \(zipcode.code)")
+                        }
+                        .onDelete{ offsets in
+                            if userRecord.zipCodes.count > 1{
+                                for index in offsets {
+                                    let zipCodeToDelete = userRecord.zipCodes[index]
+                                    
+                                    context.delete(zipCodeToDelete)
+                                }
+                                
+                                try? context.save()
+                            } else { noZipcodeShield = true}
+                        }
+                    }
+                    .toolbar{
+                        EditButton()
+                    }
+                    .alert("Must have one zipcode.", isPresented: $noZipcodeShield){
+                        Button("Okay", role: .cancel){}
+                    }
+                    .scrollContentBackground(.hidden)
                 }
+                .padding(.top, -20)
                 .scrollContentBackground(.hidden)
                 
-                List{
-                    ForEach(userRecord.zipCodes, id: \.id){ zipcode in
-                        Text("\(zipcode.name): \(zipcode.code)")
-                    }
-                    .onDelete{ offsets in
-                        if userRecord.zipCodes.count > 1{
-                            for index in offsets {
-                                let zipCodeToDelete = userRecord.zipCodes[index]
-                                
-                                context.delete(zipCodeToDelete)
-                            }
-                            
-                            try? context.save()
-                        } else { noZipcodeShield = true}
-                    }
-                }
-                .toolbar{
-                    EditButton()
-                }
-                .alert("Must have one zipcode.", isPresented: $noZipcodeShield){
-                    Button("Okay", role: .cancel){}
-                }
-                .padding(.top, -160)
-                .scrollContentBackground(.hidden)
             }
             .background(.gray.opacity(0.5))
             Spacer()
