@@ -9,19 +9,16 @@ This project is my first attempt at a full fledged app. I've recently grown in l
 ## Goals
 
 - **[COMPLETED]** Set up API service (see API info below)
-
 - **[COMPLETED]** Built decodable types to map API JSON data. Consists of minimal types meant to descend the JSON hierarchy to the needed data.
-
-- **[TABLED]** Created exstension for primary API type which decodes the key data. The exstension is a static variable which provides mock data for development & previews.
-
+- **[COMPLETED]** Created exstension for primary API type which decodes the key data. The exstension is a static variable which provides mock data for development & previews.
 - **[COMPLETED]** Main page styling
-  
+
   - [x] Forecast Day page
 
   - [x] .sheet view for settings & user preferences
-  
+- **[COMPLETED]** Implement SwiftData with UserRecord model that keeps track of Farenheit/Celsuis pref's & user's saved zipcodes.
+- **[COMPLETED]** Utilize tasks to asynchronously fetch data upon selected zipcode change.
 - **[IN PROGRESS]** Day weather data focus page
-
 - **[UP NEXT]** TBD. Whatever I want. I'd like to find a way to optimize or utilize SwiftData so we'll see =).
 
 ## Technology
