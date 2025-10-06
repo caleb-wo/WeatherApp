@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SettingsMenu: View {
     @Binding var isPresented: Bool
@@ -65,7 +66,10 @@ struct SettingsMenu: View {
 
 #Preview {
     @Previewable @State var isPresented: Bool = true
-    @Previewable @State var isFarenheit: Bool = true
-    @Previewable @State var userRecord = UserRecord()
-    SettingsMenu(isPresented: $isPresented, userRecord: userRecord)
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: UserRecord.self, configurations: config)
+    let sampleRecord = UserRecord()
+    
+    SettingsMenu(isPresented: $isPresented, userRecord: sampleRecord)
+        .modelContainer(container)
 }

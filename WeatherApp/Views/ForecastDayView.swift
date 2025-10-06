@@ -109,6 +109,12 @@ struct ForecastDayView: View {
 //)
 
 #Preview {
-    @Previewable @State var userRecord = UserRecord()
-    ForecastDayView(forecastDay: ForecastDay.mockForecast[0], userRecord: userRecord)
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: UserRecord.self, configurations: config)
+
+    let sampleRecord = UserRecord()
+    
+    ForecastDayView(forecastDay: ForecastDay.mockForecast[0],
+                    userRecord: sampleRecord)
+    .modelContainer(container)
 }

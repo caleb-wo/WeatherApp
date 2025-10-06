@@ -12,7 +12,6 @@ import SwiftData
 struct ContentView: View {
     @Query private var userRecordData: [UserRecord]
     @Environment(\.modelContext) var context
-    @State private var userRecord: UserRecord? = nil
     
     
     let service = WeatherApiService()
@@ -22,33 +21,34 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.stdBlue.ignoresSafeArea()
-            TabView{
-                ForEach(weather) { forecastDay in
-                    ForecastDayView(forecastDay: forecastDay,
-                                    userRecord: userRecord!)
+            if let userRecord = userRecordData.first {
+                Color.stdBlue.ignoresSafeArea()
+                TabView{
+                    ForEach(weather) { forecastDay in
+                        ForecastDayView(forecastDay: forecastDay,
+                                        userRecord: userRecord)
+                    }
                 }
-            }
-            .padding()
-            .tabViewStyle(.page)
-            VStack{
-                HStack{
+                .padding()
+                .tabViewStyle(.page)
+                VStack{
+                    HStack{
+                        Spacer()
+                        SettingsView(userRecord: userRecord)
+                            .padding(.trailing)
+                    }
                     Spacer()
-                    SettingsView(userRecord: userRecord!)
-                        .padding(.trailing)
                 }
-                Spacer()
+            } else {
+                ProgressView("Loading weather data...")
             }
         }
         .task{
             if userRecordData.isEmpty{
-                userRecord = UserRecord()
-                
-                context.insert(userRecord!)
+                context.insert(UserRecord())
                 try? context.save()
-            } else {
-                userRecord = userRecordData.first!
             }
+            
             do{
                 let fetchedData = try await service.get7DayForecast(for: zipcode)
                 

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SettingsView: View {
     @State var userRecord: UserRecord
@@ -36,6 +37,9 @@ struct SettingsView: View {
 }
 
 #Preview {
-    @Previewable @State var userRecord = UserRecord()
-    SettingsView(userRecord: userRecord)
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: UserRecord.self, configurations: config)
+    let sampleRecord = UserRecord()
+    SettingsView(userRecord: sampleRecord)
+        .modelContainer(container)
 }
