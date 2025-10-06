@@ -11,9 +11,12 @@ import SwiftData
 struct SettingsMenu: View {
     @Binding var isPresented: Bool
     @Environment(\.dismiss) var dismiss
-    @State private var showPopover: Bool = false
+    @Environment(\.modelContext) var context
     @State var userRecord: UserRecord
-    
+    @State var newZipCode: String = ""
+    @State var newZipCodeName: String = ""
+    @State private var noZipcodeShield = false
+
     var body: some View {
         VStack{
             Button(action:{
@@ -34,29 +37,74 @@ struct SettingsMenu: View {
                     .font(.title2.bold())
                     .foregroundStyle(.white)
                     .padding(15)
-
-                HStack{
-                    Button(action:{
-                        withAnimation(.easeInOut(duration: 0.3)){
-                            showPopover.toggle()
-                        }
-                    }){
-                        Text("New Zip Code")
-                            .foregroundStyle(.white)
-                            .font(.title2.bold())
-                        Image(systemName: "map")
-                            .foregroundStyle(.white)
-                            .font(.title2.bold())
-                    }
-                    .popover(isPresented: $showPopover, attachmentAnchor: .point(.trailing)){
-                        TextField("Enter Zip Code", text: .constant(""))
-                            .textFieldStyle(.roundedBorder)
-                            .padding(20)
-                            .presentationCompactAdaptation(.popover)
-                    }
-                    Spacer()
+                
+                TextField("Enter Zipcode Name", text: $newZipCodeName)
+                    .textFieldStyle(.roundedBorder)
+                    .padding([.leading, .trailing] ,20)
+                TextField("Enter Zipcode", text: $newZipCode)
+                    .textFieldStyle(.roundedBorder)
+                    .padding([.leading, .trailing] ,20)
+                Button("Add Zipcode"){
+                    let newZipCodeSave = ZipCode(name: newZipCodeName,
+                                                 code: newZipCode)
+                    
+                    newZipCode = ""
+                    newZipCodeName = ""
+                    
+                    userRecord.zipCodes.append(newZipCodeSave)
+                    
+                    try? context.save()
                 }
-                .padding(15)
+                .frame(width: 200)
+                .padding([.trailing, .leading], 20)
+                .font(.title2)
+                .bold()
+                .background(.white,
+                            in: RoundedRectangle(cornerRadius: 20))
+                
+                Text("Your Zipcodes")
+                    .padding(.top, 50)
+                    .padding(.bottom, -30)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.white)
+                
+                Form {
+                    Picker("Current Zip Code",
+                           selection: $userRecord.selectedZipCodeIdx) {
+                        ForEach(userRecord.zipCodes.indices, id: \.self) { idx in
+                            let zipCode = userRecord.zipCodes[idx]
+                            Text("\(zipCode.name): \(zipCode.code)").tag(idx)
+                        }
+                    }
+                           .pickerStyle(.menu)
+                }
+                .scrollContentBackground(.hidden)
+                
+                List{
+                    ForEach(userRecord.zipCodes, id: \.id){ zipcode in
+                        Text("\(zipcode.name): \(zipcode.code)")
+                    }
+                    .onDelete{ offsets in
+                        if userRecord.zipCodes.count > 1{
+                            for index in offsets {
+                                let zipCodeToDelete = userRecord.zipCodes[index]
+                                
+                                context.delete(zipCodeToDelete)
+                            }
+                            
+                            try? context.save()
+                        } else { noZipcodeShield = true}
+                    }
+                }
+                .toolbar{
+                    EditButton()
+                }
+                .alert("Must have one zipcode.", isPresented: $noZipcodeShield){
+                    Button("Okay", role: .cancel){}
+                }
+                .padding(.top, -160)
+                .scrollContentBackground(.hidden)
             }
             .background(.gray.opacity(0.5))
             Spacer()

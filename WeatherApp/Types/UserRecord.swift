@@ -11,12 +11,13 @@ import SwiftData
 @Model
 class UserRecord {
     var isFarenhiet: Bool = true
-    var zipCodes: [ZipCode] = [ZipCode(code: "83440", name: "Rexburg, ID")]
+    var zipCodes: [ZipCode] = [ZipCode(name: "Rexburg, ID", code: "83440")]
+    var selectedZipCodeIdx = 0
     
     init(){}
     
     func addZipCode(_ zipcode: String, name: String){
-        zipCodes.append(ZipCode(code: zipcode, name: name))
+        zipCodes.append(ZipCode(name: zipcode, code: name))
     }
     
     func deleteZipCode(_ index: Int){
@@ -30,8 +31,8 @@ class ZipCode: Identifiable {
     var code: String
     var name: String
     
-    init(code: String, name: String){
-        self.code = code
+    init(name: String, code: String){
         self.name = name
+        self.code = code
     }
 }

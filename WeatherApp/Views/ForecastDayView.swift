@@ -66,7 +66,7 @@ struct ForecastDayView: View {
                         .font(.headline)
                         .frame(maxHeight: 175)
                         .clipShape(ConcentricRectangle(corners: .concentric(minimum: 20), isUniform: true))
-                    }
+                    } 
                     .frame(maxWidth: 300)
                     .background(.white,
                                 in: ConcentricRectangle(corners: .concentric(minimum: 20),

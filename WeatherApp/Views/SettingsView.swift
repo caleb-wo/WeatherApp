@@ -31,7 +31,7 @@ struct SettingsView: View {
             SettingsMenu(isPresented: $isPresented,
                          userRecord: userRecord)
                 .presentationDetents([.medium, .large],
-                                     selection: .constant(.medium))
+                                     selection: .constant(.large))
         }
     }
 }
