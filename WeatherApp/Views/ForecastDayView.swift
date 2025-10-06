@@ -21,6 +21,7 @@ struct ForecastDayView: View {
             let primaryColor = Color.stdBlue
             let maxTemp = userRecord.isFarenhiet ? forecastDay.day.maxTempF : forecastDay.day.maxTempC
             let minTemp = userRecord.isFarenhiet ? forecastDay.day.minTempF : forecastDay.day.minTempC
+            let degree = userRecord.isFarenhiet ? "℉" : "℃"
 
             ZStack {
                 primaryColor
@@ -59,8 +60,8 @@ struct ForecastDayView: View {
                         }
 
                         List{
-                            Text("Max Temp: \(maxTemp, specifier: "%.1f")º")
-                            Text("Min Temp: \(minTemp, specifier: "%.1f")º")
+                            Text("Max Temp: \(maxTemp, specifier: "%.1f")\(degree)")
+                            Text("Min Temp: \(minTemp, specifier: "%.1f")\(degree)")
                         }
                         .font(.headline)
                         .frame(maxHeight: 175)
