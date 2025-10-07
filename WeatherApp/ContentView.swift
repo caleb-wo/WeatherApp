@@ -32,6 +32,14 @@ struct ContentView: View {
                 .tabViewStyle(.page)
                 VStack{
                     HStack{
+                        Text(userRecord.zipCodes[
+                            userRecord.selectedZipCodeIdx
+                        ].name)
+                        .padding(.leading)
+                        .font(.title)
+                        .bold()
+                        .foregroundStyle(.white)
+                        
                         Spacer()
                         SettingsView(userRecord: userRecord)
                             .padding(.trailing)
