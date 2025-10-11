@@ -8,7 +8,7 @@ This project was my first attempt at a full fledged app. I've recently grown in 
 
 ## App Showcase
 
-<img src="./Showcase/app_demo.gif" alt="See demo in Showcase directory." width="500">
+<img src="./Showcase/app_demo.gif" alt="See demo in Showcase directory." height="700">
 
 
 ## Goals
