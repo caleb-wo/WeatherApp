@@ -33,9 +33,7 @@ struct ContentView: View {
                     .tabViewStyle(.page)
                     VStack{
                         HStack{
-                            Text(userRecord.zipCodes[
-                                userRecord.selectedZipCodeIdx
-                            ].name)
+                            Text(userRecord.selectedZipCode!.name)
                             .padding(.leading)
                             .font(.title)
                             .bold()
@@ -59,23 +57,18 @@ struct ContentView: View {
             }
             
         }
-        .task(id: userRecordData.first?.selectedZipCodeIdx){
+        .task(id: userRecordData.first?.selectedZipCode){
             do{
                 let fetchedData: [ForecastDay]
                 let code: String
                 
-                guard let userRecord = userRecordData.first else {
-                    print("Error: Could not retrieve UserRecord for initial fetch.")
+                guard let userRecord = userRecordData.first,
+                      let selectedZip = userRecord.selectedZipCode else {
+                    print("Error: Could not retrieve UserRecord or selected zip code.")
                     return
                 }
                 
-                if userRecord.zipCodes.indices.contains(
-                    userRecord.selectedZipCodeIdx
-                ) {
-                    code = userRecord.zipCodes[userRecord.selectedZipCodeIdx].code
-                } else {
-                    code = "83440"
-                }
+                code = selectedZip.code
                 
                 fetchedData = try await service.get7DayForecast(for: code)
 

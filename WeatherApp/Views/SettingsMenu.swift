@@ -72,14 +72,15 @@ struct SettingsMenu: View {
                 
                 Form {
                     Picker("Current Zip Code",
-                           selection: $userRecord.selectedZipCodeIdx) {
-                        ForEach(userRecord.zipCodes.indices, id: \.self) { idx in
-                            let zipCode = userRecord.zipCodes[idx]
-                            
-                            if zipCode == userRecord.zipCodes[userRecord.selectedZipCodeIdx] {
-                                Text("⭐️ \(zipCode.name): \(zipCode.code)").tag(idx)
+                           selection: $userRecord.selectedZipCode) {
+                        
+                        ForEach(userRecord.zipCodes) { zipCode in
+                            if zipCode == userRecord.selectedZipCode {
+                                Text("⭐️ \(zipCode.name): \(zipCode.code)")
+                                    .tag(zipCode as ZipCode?)
                             } else {
-                                Text("\(zipCode.name): \(zipCode.code)").tag(idx)
+                                Text("\(zipCode.name): \(zipCode.code)")
+                                    .tag(zipCode as ZipCode?)
                             }
                         }
                     }
@@ -87,31 +88,25 @@ struct SettingsMenu: View {
                     
                     List{
                         ForEach(userRecord.zipCodes, id: \.id){ zipcode in
-                            Text("\(zipcode.name): \(zipcode.code)")
-                        }
-                        .onDelete{ offsets in
-                             guard userRecord.zipCodes.count > 1,
-                                    let deletedIndex = offsets.first else {
-                                 noZipcodeShield = true
-                                 return
-                             }
-                             
-                             if deletedIndex < userRecord.selectedZipCodeIdx {
-                                 userRecord.selectedZipCodeIdx -= 1
-                             } else if userRecord.zipCodes[
-                                deletedIndex
-                             ] == userRecord.zipCodes[
-                                            userRecord.selectedZipCodeIdx
-                                        ] {
-                                 attempetedDeleteMainZipCode = true
-                                 return
-                             }
-                            
-                            let zipCodeToDelete = userRecord.zipCodes[deletedIndex]
-                             context.delete(zipCodeToDelete)
-                            
-                            try? context.save()
-                        }
+                                Text("\(zipcode.name): \(zipcode.code)")
+                            }
+                            .onDelete{ offsets in
+                                 guard userRecord.zipCodes.count > 1,
+                                        let deletedIndex = offsets.first else {
+                                     noZipcodeShield = true
+                                     return
+                                 }
+                                 
+                                 let zipCodeToDelete = userRecord.zipCodes[deletedIndex]
+                                 
+                                 if zipCodeToDelete == userRecord.selectedZipCode {
+                                     attempetedDeleteMainZipCode = true
+                                     return
+                                 }
+                                
+                                 context.delete(zipCodeToDelete)
+                                try? context.save()
+                            }
                     }
                     .toolbar{
                         EditButton()
