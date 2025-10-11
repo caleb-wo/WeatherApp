@@ -8,7 +8,7 @@ This project was my first attempt at a full fledged app. I've recently grown in 
 
 ## App Showcase
 
-<video src="./Showcase/app_demo.mp4" width="500" autoplay loop muted playsinline> </video>
+<video src="https://github.com/caleb-wo/WeatherApp/tree/main/Showcase/app_demo.mp4?raw=true" width="500" autoplay loop muted playsinline> </video>
 
 
 ## Goals
