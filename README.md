@@ -8,7 +8,7 @@ This project was my first attempt at a full fledged app. I've recently grown in 
 
 ## App Showcase
 
-![Application demonstration.](./Showcase/app_demo_small.gif)
+<video src="Showcase/app_demo.mp4" width="500" autoplay loop muted playsinline> </video>
 
 ## Goals
 
