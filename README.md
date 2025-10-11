@@ -2,9 +2,13 @@
 
 ## Introduction
 
-This project is my first attempt at a full fledged app. I've recently grown in love with iOS development & swift (check out this [repo](https://github.com/caleb-wo/Develop-In-Swift-Tutorials)). Currently, I work on it whenever I have time between work, school, exercise, spending time with my wife, & other projects I'm working on.
+This project was my first attempt at a full fledged app. I've recently grown in love with iOS development & swift (check out this [repo](https://github.com/caleb-wo/Develop-In-Swift-Tutorials)).  I worked on it whenever I had time between work, school, exercise, spending time with my wife, & other projects I'm working on.
 
- If you have any tips for me, please let me know!
+ If you have any tips for me, please let me know! This project is officially completed.
+
+## App Showcase
+
+![Application demonstration.](./Showcase/app_demo_small.gif)
 
 ## Goals
 
@@ -18,8 +22,7 @@ This project is my first attempt at a full fledged app. I've recently grown in l
   - [x] .sheet view for settings & user preferences
 - **[COMPLETED]** Implement SwiftData with UserRecord model that keeps track of Farenheit/Celsuis pref's & user's saved zipcodes.
 - **[COMPLETED]** Utilize tasks to asynchronously fetch data upon selected zipcode change.
-- **[IN PROGRESS]** Day weather data focus page
-- **[UP NEXT]** TBD. Whatever I want. I'd like to find a way to optimize or utilize SwiftData so we'll see =).
+- **[COMPLETED]** Day weather data focus page
 
 ## Technology
 
