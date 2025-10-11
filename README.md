@@ -14,26 +14,11 @@ This project was my first attempt at a full fledged app. I've recently grown in 
     <sup>Note: the <strong>.gif</strong> diminishes some smoothness & quality.</sup>
 </div>
 
-
-## Goals
-
-- **[COMPLETED]** Set up API service (see API info below)
-- **[COMPLETED]** Built decodable types to map API JSON data. Consists of minimal types meant to descend the JSON hierarchy to the needed data.
-- **[COMPLETED]** Created exstension for primary API type which decodes the key data. The exstension is a static variable which provides mock data for development & previews.
-- **[COMPLETED]** Main page styling
-
-  - [x] Forecast Day page
-
-  - [x] .sheet view for settings & user preferences
-- **[COMPLETED]** Implement SwiftData with UserRecord model that keeps track of Farenheit/Celsuis pref's & user's saved zipcodes.
-- **[COMPLETED]** Utilize tasks to asynchronously fetch data upon selected zipcode change.
-- **[COMPLETED]** Day weather data focus page
-
 ## Technology
 
 - Xcode
 
-- Swift & SwiftUI
+- Swift, SwiftUI, & SwiftData
 
 - [Free Weather API](https://www.weatherapi.com/) (API free tier allows me only 3 forecast days)
 
@@ -60,3 +45,18 @@ This project was my first attempt at a full fledged app. I've recently grown in 
   - [Xcode 16 Debugging Tutorial for Beginners (2025)](https://www.youtube.com/watch?v=ZJmUeOT6c-Y)
 
   - [Sean Allen](https://www.youtube.com/@seanallen) –> Massive number of tutorial videos for Swift, SwiftUI, etc.
+
+## Goals
+
+- **[COMPLETED]** Set up API service (see API info below)
+- **[COMPLETED]** Built decodable types to map API JSON data. Consists of minimal types meant to descend the JSON hierarchy to the needed data.
+- **[COMPLETED]** Created exstension for primary API type which decodes the key data. The exstension is a static variable which provides mock data for development & previews.
+- **[COMPLETED]** Main page styling
+
+  - [x] Forecast Day page
+
+  - [x] .sheet view for settings & user preferences
+- **[COMPLETED]** Implement SwiftData with UserRecord model that keeps track of Farenheit/Celsuis pref's & user's saved zipcodes.
+- **[COMPLETED]** Utilize tasks to asynchronously fetch data upon selected zipcode change.
+- **[COMPLETED]** Day weather data focus page
+- **[COMPLETED]** Weather App
