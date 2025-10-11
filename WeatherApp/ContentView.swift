@@ -33,15 +33,20 @@ struct ContentView: View {
                     .tabViewStyle(.page)
                     VStack{
                         HStack{
-                            Text(userRecord.selectedZipCode!.name)
-                            .padding(.leading)
-                            .font(.title)
-                            .bold()
-                            .foregroundStyle(.white)
-                            
-                            Spacer()
-                            SettingsView(userRecord: userRecord)
-                                .padding(.trailing)
+                            if let mainCode = userRecord.selectedZipCode{
+                                Text(mainCode.name)
+                                .padding(.leading)
+                                .font(.title)
+                                .bold()
+                                .foregroundStyle(.white)
+                                
+                                Spacer()
+                                SettingsView(userRecord: userRecord)
+                                    .padding(.trailing)
+
+                            } else {
+                                ProgressView("Loading weather data...")
+                            }
                         }
                         Spacer()
                     }
