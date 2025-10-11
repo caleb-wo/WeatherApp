@@ -16,6 +16,7 @@ struct SettingsMenu: View {
     @State var newZipCode: String = ""
     @State var newZipCodeName: String = ""
     @State private var noZipcodeShield = false
+    @State private var addingDuplicate = false
     @State private var attempetedDeleteMainZipCode = false
 
     var body: some View {
@@ -47,13 +48,21 @@ struct SettingsMenu: View {
                     .textFieldStyle(.roundedBorder)
                     .padding([.leading, .trailing] ,20)
                 Button("Add Zipcode"){
+                    for code in userRecord.zipCodes {
+                        if newZipCode == code.code {
+                            addingDuplicate = true
+                            newZipCode = ""
+                            newZipCodeName = ""
+                            return
+                        }
+                    }
+                    
                     let newZipCodeSave = ZipCode(name: newZipCodeName,
                                                  code: newZipCode)
-                    
+
+                    userRecord.zipCodes.append(newZipCodeSave)
                     newZipCode = ""
                     newZipCodeName = ""
-                    
-                    userRecord.zipCodes.append(newZipCodeSave)
 
                     try? context.save()
                 }
@@ -112,6 +121,9 @@ struct SettingsMenu: View {
                         EditButton()
                     }
                     .alert("Must have one zipcode.", isPresented: $noZipcodeShield){
+                        Button("Okay", role: .cancel){}
+                    }
+                    .alert("Cannot add duplicate zipcode.", isPresented: $addingDuplicate){
                         Button("Okay", role: .cancel){}
                     }
                     .alert("Cannot delete current selected zipcode.",
