@@ -12,10 +12,11 @@ struct SettingsMenu: View {
     @Binding var isPresented: Bool
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var context
-    @State var userRecord: UserRecord
+    @Bindable var userRecord: UserRecord
     @State var newZipCode: String = ""
     @State var newZipCodeName: String = ""
     @State private var noZipcodeShield = false
+    @State private var attempetedDeleteMainZipCode = false
 
     var body: some View {
         VStack{
@@ -53,7 +54,7 @@ struct SettingsMenu: View {
                     newZipCodeName = ""
                     
                     userRecord.zipCodes.append(newZipCodeSave)
-                    
+
                     try? context.save()
                 }
                 .frame(width: 200)
@@ -89,21 +90,37 @@ struct SettingsMenu: View {
                             Text("\(zipcode.name): \(zipcode.code)")
                         }
                         .onDelete{ offsets in
-                            if userRecord.zipCodes.count > 1{
-                                for index in offsets {
-                                    let zipCodeToDelete = userRecord.zipCodes[index]
-                                    
-                                    context.delete(zipCodeToDelete)
-                                }
-                                
-                                try? context.save()
-                            } else { noZipcodeShield = true}
+                             guard userRecord.zipCodes.count > 1,
+                                    let deletedIndex = offsets.first else {
+                                 noZipcodeShield = true
+                                 return
+                             }
+                             
+                             if deletedIndex < userRecord.selectedZipCodeIdx {
+                                 userRecord.selectedZipCodeIdx -= 1
+                             } else if userRecord.zipCodes[
+                                deletedIndex
+                             ] == userRecord.zipCodes[
+                                            userRecord.selectedZipCodeIdx
+                                        ] {
+                                 attempetedDeleteMainZipCode = true
+                                 return
+                             }
+                            
+                            let zipCodeToDelete = userRecord.zipCodes[deletedIndex]
+                             context.delete(zipCodeToDelete)
+                            
+                            try? context.save()
                         }
                     }
                     .toolbar{
                         EditButton()
                     }
                     .alert("Must have one zipcode.", isPresented: $noZipcodeShield){
+                        Button("Okay", role: .cancel){}
+                    }
+                    .alert("Cannot delete current selected zipcode.",
+                           isPresented: $attempetedDeleteMainZipCode){
                         Button("Okay", role: .cancel){}
                     }
                     .scrollContentBackground(.hidden)
@@ -124,6 +141,7 @@ struct SettingsMenu: View {
     let container = try! ModelContainer(for: UserRecord.self, configurations: config)
     let sampleRecord = UserRecord()
     
-    SettingsMenu(isPresented: $isPresented, userRecord: sampleRecord)
+    SettingsMenu(isPresented: $isPresented,
+                 userRecord: sampleRecord)
         .modelContainer(container)
 }

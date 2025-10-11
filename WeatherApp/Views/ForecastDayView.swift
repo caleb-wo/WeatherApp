@@ -21,68 +21,66 @@ struct ForecastDayView: View {
             let primaryColor = Color.stdBlue
             let maxTemp = userRecord.isFarenhiet ? forecastDay.day.maxTempF : forecastDay.day.maxTempC
             let minTemp = userRecord.isFarenhiet ? forecastDay.day.minTempF : forecastDay.day.minTempC
-            let degree = userRecord.isFarenhiet ? "℉" : "℃"
+            let degree = userRecord.isFarenhiet ? " ℉" : " ℃"
 
-            ZStack {
-                primaryColor
-                    .ignoresSafeArea(edges: .all)
-                
-                Spacer()
-                VStack{
-                    VStack(spacing: 10){
-                        Text("\(dateInfo.day)")
-                            .font(.largeTitle)
-                            .padding([.top, .leading, .trailing], 50)
-                            .foregroundStyle(primaryColor)
-                            .bold()
-                        
-                        Text("\(dateInfo.monthAndDay)")
-                            .font(.title2)
-                            .foregroundStyle(primaryColor.opacity(0.7))
-                        
-                        HStack{
-                            Text("\(forecastDay.day.condition.text)")
+                    ZStack {
+                        primaryColor
+                            .ignoresSafeArea(edges: .all)
+                    VStack{
+                        VStack(spacing: 10){
+                            Text("\(dateInfo.day)")
+                                .font(.largeTitle)
+                                .padding([.top, .leading, .trailing], 50)
+                                .foregroundStyle(primaryColor)
+                                .bold()
+                            
+                            Text("\(dateInfo.monthAndDay)")
                                 .font(.title2)
-                            AsyncImage(url: URL(
-                                string: urlStub + forecastDay.day.condition.icon)){ phase in
-                                    switch phase {
-                                    case .empty:
-                                        ProgressView()
-                                    case .success(let image):
-                                        image
-                                            .padding(0)
-                                    case .failure:
-                                        EmptyView()
-                                    @unknown default:
-                                        EmptyView()
+                                .foregroundStyle(primaryColor.opacity(0.7))
+                            
+                            HStack{
+                                Text("\(forecastDay.day.condition.text)")
+                                    .font(.title2)
+                                AsyncImage(url: URL(
+                                    string: urlStub + forecastDay.day.condition.icon)){ phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                        case .success(let image):
+                                            image
+                                                .padding(0)
+                                        case .failure:
+                                            EmptyView()
+                                        @unknown default:
+                                            EmptyView()
+                                        }
                                     }
-                                }
-                        }
+                            }
 
-                        List{
-                            Text("Max Temp: \(maxTemp, specifier: "%.1f")\(degree)")
-                            Text("Min Temp: \(minTemp, specifier: "%.1f")\(degree)")
+                            List{
+                                Text("Max Temp: \(maxTemp, specifier: "%.1f")\(degree)")
+                                Text("Min Temp: \(minTemp, specifier: "%.1f")\(degree)")
+                            }
+                            .font(.headline)
+                            .frame(maxHeight: 175)
+                            .clipShape(ConcentricRectangle(corners: .concentric(minimum: 20), isUniform: true))
                         }
-                        .font(.headline)
-                        .frame(maxHeight: 175)
-                        .clipShape(ConcentricRectangle(corners: .concentric(minimum: 20), isUniform: true))
-                    } 
-                    .frame(maxWidth: 300)
-                    .background(.white,
-                                in: ConcentricRectangle(corners: .concentric(minimum: 20),
-                                                        isUniform: true))
-                    Button("MORE"){
-                        
+                        .frame(maxWidth: 300)
+                        .background(.white,
+                                    in: ConcentricRectangle(corners: .concentric(minimum: 20),
+                                                            isUniform: true))
+                        NavigationLink{
+                            ForecastDetailedView(forecastDay: forecastDay)
+                        } label: {
+                            Text("MORE")
+                                .frame(maxWidth: 275)
+                                .font(.headline)
+                                .padding(10)
+                                .glassEffect(in: RoundedRectangle(cornerRadius: 20))
+                        }
                     }
-                    .frame(maxWidth: 275)
-                    .font(.headline)
-                    .padding(10)
-                    .glassEffect(in: RoundedRectangle(cornerRadius: 20))
-                }
-                Spacer()
-                
-
-            } // ZStack
+                    Spacer()
+                    } // ZStack
         } else {
             Text("Error getting date information. Report bug.")
         }

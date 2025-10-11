@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct SettingsView: View {
-    @State var userRecord: UserRecord
+    var userRecord: UserRecord
     @State var isPresented: Bool = false
     
     var body: some View {

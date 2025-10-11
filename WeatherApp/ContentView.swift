@@ -19,35 +19,37 @@ struct ContentView: View {
 //    private var weather = ForecastDay.mockForecast
     
     var body: some View {
-        ZStack {
-            if let userRecord = userRecordData.first {
-                Color.stdBlue.ignoresSafeArea()
-                TabView{
-                    ForEach(weather) { forecastDay in
-                        ForecastDayView(forecastDay: forecastDay,
-                                        userRecord: userRecord)
+        NavigationStack{
+            ZStack {
+                if let userRecord = userRecordData.first {
+                    Color.stdBlue.ignoresSafeArea()
+                    TabView{
+                        ForEach(weather) { forecastDay in
+                            ForecastDayView(forecastDay: forecastDay,
+                                            userRecord: userRecord)
+                        }
                     }
-                }
-                .padding()
-                .tabViewStyle(.page)
-                VStack{
-                    HStack{
-                        Text(userRecord.zipCodes[
-                            userRecord.selectedZipCodeIdx
-                        ].name)
-                        .padding(.leading)
-                        .font(.title)
-                        .bold()
-                        .foregroundStyle(.white)
-                        
+                    .padding()
+                    .tabViewStyle(.page)
+                    VStack{
+                        HStack{
+                            Text(userRecord.zipCodes[
+                                userRecord.selectedZipCodeIdx
+                            ].name)
+                            .padding(.leading)
+                            .font(.title)
+                            .bold()
+                            .foregroundStyle(.white)
+                            
+                            Spacer()
+                            SettingsView(userRecord: userRecord)
+                                .padding(.trailing)
+                        }
                         Spacer()
-                        SettingsView(userRecord: userRecord)
-                            .padding(.trailing)
                     }
-                    Spacer()
+                } else {
+                    ProgressView("Loading weather data...")
                 }
-            } else {
-                ProgressView("Loading weather data...")
             }
         }
         .task{

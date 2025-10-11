@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ForecastDetailedView: View {
     @State var forecastDay: ForecastDay
+    @Environment(\.dismiss) var dismiss
+    
     private let primaryColor = Color.stdBlue
     let urlStub = "https:"
     
@@ -20,7 +22,11 @@ struct ForecastDetailedView: View {
                     HStack{
                         Text("\(dateData.monthAndDay)")
                         Spacer()
-                        Image(systemName: "xmark.circle.fill")
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                        }
                         
                     }
                     .padding()
@@ -33,6 +39,7 @@ struct ForecastDetailedView: View {
                             .font(.largeTitle)
                             .bold()
                             .foregroundColor(.white)
+                            .padding(.top, 20)
                         
                         HStack{
                             Text("\(forecastDay.day.condition.text)")
@@ -54,40 +61,77 @@ struct ForecastDetailedView: View {
                                     }
                                 }
                         }
-                        .padding(.bottom, 40)
+                        .padding(.top, -10)
+                        .padding(.bottom, 20)
                         
-                        Grid{
-                            GridRow{
-                                VStack(alignment: .leading){
-                                    HStack{Spacer();Text("Farenhiet");Spacer()}
-                                        .font(.title2)
-                                        .foregroundColor(.white)
-                                    
-                                        Text("Max Temp: \(forecastDay.day.maxTempF, specifier: "%.1f")℉")
-                                        .font(.headline)
-                                        .padding(.leading)
-                                        .foregroundStyle(.white)
-                                    Text("Min Temp: \(forecastDay.day.minTempF, specifier: "%.1f")℉")
-                                        .font(.headline)
-                                        .padding(.leading)
-                                        .foregroundStyle(.white)
-                                }
-                            }
-                            GridRow{
-                                HStack{Spacer();Text("Celsius");Spacer()}
+                        
+                        List{
+                            VStack(alignment: .leading){
+                                HStack{Spacer();Text("Farenhiet").padding();Spacer()}
+                                    .background(.gray.opacity(0.15),
+                                                in: ConcentricRectangle(
+                                                    corners: .concentric(minimum: 20),
+                                                    isUniform: true))
                                     .font(.title2)
-                                    .foregroundColor(.white)
+                                    .bold()
+                                Text("Max Temp: \(forecastDay.day.maxTempF, specifier: "%.1f") ℉")
+                                Text("Min Temp: \(forecastDay.day.minTempF, specifier: "%.1f") ℉")
                             }
+                            .padding(.leading)
+                            .lineHeight(.loose)
+
+                            VStack(alignment: .leading){
+                                HStack{Spacer();Text("Celsius").padding();Spacer()}
+                                    .background(.gray.opacity(0.15),
+                                                in: ConcentricRectangle(
+                                                    corners: .concentric(minimum: 20),
+                                                    isUniform: true))
+                                    .font(.title2)
+                                    .bold()
+                                Text("Max Temp: \(forecastDay.day.maxTempC, specifier: "%.1f") ℃")
+                                Text("Min Temp: \(forecastDay.day.minTempC, specifier: "%.1f") ℃")
+                            }
+                            .padding(.leading)
+                            .lineHeight(.loose)
+
+                            VStack(alignment: .leading){
+                                HStack{Spacer();Text("Atmospheric Conditions").padding();Spacer()}
+                                    .background(.gray.opacity(0.15),
+                                                in: ConcentricRectangle(
+                                                    corners: .concentric(minimum: 20),
+                                                    isUniform: true))
+                                    .font(.title2)
+                                    .bold()
+                                Text("Avg. Humidity: \(forecastDay.day.avgHumidity)")
+                                Text("Max Wind: \(forecastDay.day.maxWindMPH, specifier: "%.1f") MPH | \(forecastDay.day.maxWindKPH, specifier: "%.1f") KPH")
+                                Text("Chance of Rain: \(forecastDay.day.dailyChanceOfRain)")
+                                Text("Chance of Snow: \(forecastDay.day.dailyChanceOfSnow)")
+                            }
+                            .padding(.leading)
+                            .lineHeight(.loose)
+
+                            VStack(alignment: .leading){
+                                let astro = forecastDay.astro
+                                HStack{Spacer();Text("Astrology").padding();Spacer()}
+                                    .background(.gray.opacity(0.15),
+                                                in: ConcentricRectangle(
+                                                    corners: .concentric(minimum: 20),
+                                                    isUniform: true))
+                                    .font(.title2)
+                                    .bold()
+                                Text("Sunrise: \(astro.sunrise)")
+                                Text("Sunset: \(astro.sunset)")
+                                Text("Moon Phase: \(astro.moonPhase)")
+                                Text("Moonrise: \(astro.moonrise)")
+                                Text("Moonset: \(astro.moonset)")
+                            }
+                            .padding(.leading)
+                            .lineHeight(.loose)
                         }
                     }
-                    .background(.gray,
-                                in: ConcentricRectangle(
-                                    corners: .concentric(minimum: 20),
-                                    isUniform: true))
-                    .padding()
-                    Spacer()
                 }
             }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }
