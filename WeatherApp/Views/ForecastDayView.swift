@@ -8,6 +8,8 @@
 import SwiftUI
 import SwiftData
 
+/// View to display quick forecast day information.
+/// Links to settings view and detailed view.
 struct ForecastDayView: View {
     let forecastDay: ForecastDay
     @State var userRecord: UserRecord

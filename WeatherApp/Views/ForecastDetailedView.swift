@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Detailed view for ForecastDay struct. Displays additional info
+/// such as atrology information, wind speed, humidity, and more.
 struct ForecastDetailedView: View {
     @State var forecastDay: ForecastDay
     @Environment(\.dismiss) var dismiss

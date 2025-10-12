@@ -8,6 +8,8 @@
 import Foundation
 import SwiftData
 
+/// Struct to hold user's data. Tracks farenhiet vs celsius,
+/// user's zipcodes, and the selected zipcode.
 @Model
 class UserRecord {
     var isFarenhiet: Bool = true
@@ -27,6 +29,8 @@ class UserRecord {
     }
 }
 
+/// Zipcode structs. Holds zipcode string, user's name,
+/// id, and equivalence checking function.
 @Model
 class ZipCode: Identifiable, Equatable {
     var id = UUID()

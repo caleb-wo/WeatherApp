@@ -33,7 +33,10 @@ public struct WeatherApiService {
     
     let baseUrl = URL(string: "https://api.weatherapi.com")
     let decoder = JSONDecoder()
-
+    
+    /// Generates the request to get the API JSON.
+    /// - Parameter zipcode: String representing the zipcode for weather data.
+    /// - Returns: URLRequest object for a 3 day weather forecast.
     private func get7DayForecastRequest(for zipcode: String) throws -> URLRequest {
         var components = URLComponents(url: baseUrl!, resolvingAgainstBaseURL: false)
         components?.queryItems = [
@@ -55,6 +58,9 @@ public struct WeatherApiService {
         return request
     }
     
+    /// Takes URL request and gets raw JSON.
+    /// - Parameter request: URLRequest for JSON, gets weather for 3 days.
+    /// - Returns: Raw JSON forecast data.
     private func get7DayForecastJSON(with request: URLRequest) async throws -> Data{
         let (data, response) = try await URLSession.shared.data(for: request)
         
@@ -66,6 +72,9 @@ public struct WeatherApiService {
         return data
     }
     
+    /// Gets JOSN data and decodes into structs. Top level struct = ForecastDay.
+    /// - Parameter data: JSON weahter data
+    /// - Returns: Returns array containing 3 ForecastDay data.
     private func parseJSON(using data: Data) throws -> [ForecastDay] {
         do {
             let weatherResponse = try decoder.decode(WeatherResponse.self, from: data)
@@ -78,6 +87,9 @@ public struct WeatherApiService {
         }
     }
     
+    /// Wires together all REST get functions into one servicer.
+    /// - Parameter zipcode: Zipcode string for selected zipcode weather data.
+    /// - Returns: Array containing 3 day Forecast data. [ForecastDay]
     func get7DayForecast(for zipcode: String) async throws -> [ForecastDay] {
         do {
             let request = try get7DayForecastRequest(for: zipcode)

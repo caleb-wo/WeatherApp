@@ -8,6 +8,8 @@
 import SwiftUI
 import SwiftData
 
+/// Button which loads a .sheet which presents
+/// a SettingsMenu view.
 struct SettingsView: View {
     var userRecord: UserRecord
     @State var isPresented: Bool = false

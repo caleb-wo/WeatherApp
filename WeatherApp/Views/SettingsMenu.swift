@@ -8,6 +8,9 @@
 import SwiftUI
 import SwiftData
 
+/// Settings view to augment user settings and preferences.
+/// Responsible for managing farenheit vs celsius, and
+/// adding and deleting zipcodes.
 struct SettingsMenu: View {
     @Binding var isPresented: Bool
     @Environment(\.dismiss) var dismiss
@@ -80,6 +83,7 @@ struct SettingsMenu: View {
                     .foregroundStyle(.white)
                 
                 Form {
+                    /// Add new zipode.
                     Picker("Current Zip Code",
                            selection: $userRecord.selectedZipCode) {
                         
@@ -96,6 +100,7 @@ struct SettingsMenu: View {
                            .pickerStyle(.menu)
                     
                     List{
+                        /// View and/or delete zipcodes.
                         ForEach(userRecord.zipCodes, id: \.id){ zipcode in
                                 Text("\(zipcode.name): \(zipcode.code)")
                             }

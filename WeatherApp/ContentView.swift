@@ -55,6 +55,9 @@ struct ContentView: View {
                 }
             }
         }
+        /// If application is opened and there is no
+        /// saved data, a default UserRecord is created
+        /// and saved for the new user.
         .task{
             if userRecordData.isEmpty{
                 context.insert(UserRecord())
@@ -62,6 +65,8 @@ struct ContentView: View {
             }
             
         }
+        /// Checks for user's selected zipcode and fetches
+        /// weather data for the application.
         .task(id: userRecordData.first?.selectedZipCode){
             do{
                 let fetchedData: [ForecastDay]

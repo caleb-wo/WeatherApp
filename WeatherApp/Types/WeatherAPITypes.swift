@@ -38,6 +38,9 @@ struct ForecastDay: Decodable, Identifiable {
      }
     
     
+    /// Helper function to format date data from epoch.
+    /// - Returns: Tuple containing formatted string for application.
+    /// - Example: (day: "Monday", monthAndDay: "10/14")
     func getDateInfo() throws -> (day: String, monthAndDay: String) {
         let dateObject = Date(timeIntervalSince1970: dateEpoch)
         let dayName = dateObject.formatted(.dateTime.weekday(.wide))
@@ -115,6 +118,7 @@ struct Astro: Decodable{
 }
 
 
+/// Produces 5 ForecstDay structs for testing and previews.
 extension ForecastDay {
     static var mockForecast: [ForecastDay] {[
         ForecastDay(
