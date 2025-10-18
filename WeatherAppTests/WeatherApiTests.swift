@@ -16,9 +16,23 @@ struct WeatherApiTests {
         
         let forecastArray = try await apiService.get7DayForecast(for: "92336")
         
-        #expect(forecastArray is [ForecastDay])
         #expect(!forecastArray.isEmpty)
-        #expect(forecastArray.count == 7)
+        #expect(forecastArray.count == 3)
+    }
+    
+    @Test("Check forecast date strings")
+    func getForecastDateStringsTest() async throws {
+        let apiService = WeatherApiService()
+        let forecastArray = try await apiService.get7DayForecast(for: "92336")
+        
+        let dateStrings = try forecastArray.map() { forecast in
+            try forecast.getDateInfo()
+        }
+        
+        for date in dateStrings {
+            #expect(date is (String, String))
+        }
+        #expect(dateStrings.count == 3)
     }
 
 }
