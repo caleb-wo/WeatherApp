@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This project was my first attempt at a full fledged app. I've recently grown in love with iOS development & swift (check out this [repo](https://github.com/caleb-wo/Develop-In-Swift-Tutorials)).  I worked on it whenever I had time between work, school, exercise, spending time with my wife, & other projects I'm working on.
+This project was my first attempt at a full fledged app. Although it's far from 'full fledged,' I'm happy with how it turned out! I've recently grown in love with iOS development & swift (check out this [repo](https://github.com/caleb-wo/Develop-In-Swift-Tutorials)).  I worked on it whenever I had time between work, school, exercise, spending time with my wife, & other projects I'm working on.
 
  If you have any tips for me, please let me know! This project is officially completed.
 
